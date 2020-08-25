@@ -1,12 +1,21 @@
 # NeuralNetwork-in-CPP
-WORK IN PROGRESS
 
-This neural network design is written in C++. I've created this by following a book called "Make Your Own Neural Network" by Tariq Rashid (ISBN: 9781530826605). Later on is given an example in Python. I tried to implement the whole logic in C++ which works fine at some point. Feeding forward with the same example values resulted in the same results as given in the book. However, there seems to be something wrong with the implementation of the back-propagation method or any function this method calls.
+This neural network design is written in C++. I've created this by following a book called "Make Your Own Neural Network" by Tariq Rashid (ISBN: 9781530826605) and this article https://towardsdatascience.com/implementing-the-xor-gate-using-backpropagation-in-neural-networks-c1f255b4f20d
 
-I trained it with the XOR problem which leads to strange results:
-Utilizing [0, 1], [1, 0] or [1, 1] as input values results in very similar, very small values. Using [0, 0] results in a value much bigger (still smaller than 1.0).
+The XOR problem can be solved with a 2x2x1 network running 10'000 iteration in about 100ms (LR = 0.3).
 
-The source code is split into 3 parts:
-The AnnMaths namespace featuring useful functions,
-The NeuralNetwork class for creating instances of the NeuralNetwork
-and the main.cpp which contains a training example.
+## Usage
+The network is initialized by the following:
+The given topology as an std::vector<int>
+Input data via std::vector<Matrix>
+Target data via std::vector<Matrix>
+Learning rate (float)
+  
+  NeuralNetwork nn(topology, LR, xorInputs, xorTargets); 
+  
+The Network uses the standard Sigmoid activation function. You can select different activation functions. Create an std::vector<int> and push back the activation function aliases.
+
+std::vector<int> aTypes;
+aTypes.push_back(SIGMOID); //use Sigmoid function for layer 1
+aTypes.push_back(TANH);    //use TanH function for layer 2
+nn.setActivationTypes(aTypes);
